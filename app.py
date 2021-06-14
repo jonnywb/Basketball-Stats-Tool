@@ -36,7 +36,7 @@ def balance_teams(lst, plyrs):
     for team in lst:
         new_teams[team] = []
 
-    #Create temporary lists for experienced and inexperienced players
+    # Create temporary lists for experienced and inexperienced players
     experienced_players = []
     inexperienced_players = []
 
@@ -48,10 +48,12 @@ def balance_teams(lst, plyrs):
         else: 
             inexperienced_players.append(temp_player)
     
+    # Create list of team names for use as key in for loop
     team_names = []
     for team in new_teams:
         team_names.append(team)
 
+    # Loop over number of both exp / inexp players using % and append to team lists.
     for num in range(-1, len(experienced_players) - 1):
         team = team_names[num % len(new_teams)]
         new_teams[team].append(experienced_players[num])
@@ -171,8 +173,6 @@ def stats_tool(dict):
         # Outputs ValueError Message if user input is incorrect.
         except ValueError as err:
             print(f'There was an error. {err}')
-    
-
     
 # write dunder main
 if __name__ == "__main__":
