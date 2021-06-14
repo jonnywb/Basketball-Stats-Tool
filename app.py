@@ -164,7 +164,7 @@ def stats_tool(dict):
             
             # Exits the program (breaking the loop)
             elif user_choice_one.upper() == 'B':
-                print('Thanks for using Basketball Stats Tool.')
+                print('Thanks for using the Basketball Stats Tool.')
                 break
             
             # Any other entry other will raise ValueError
@@ -183,4 +183,4 @@ if __name__ == "__main__":
     new_players = clean_players(PLAYERS)
     balanced_teams = balance_teams(TEAMS, new_players)
 
-    #stats_tool(balanced_teams)
+    stats_tool(balanced_teams)
