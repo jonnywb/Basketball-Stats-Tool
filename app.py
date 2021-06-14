@@ -47,22 +47,19 @@ def balance_teams(lst, plyrs):
             experienced_players.append(temp_player)
         else: 
             inexperienced_players.append(temp_player)
-
-    # Number of experienced players
-    num_exp = len(experienced_players)
-
-    # Now split experienced players into teams
-    for teams in new_teams:
-        for exp_plyr in experienced_players:
-            while len(new_teams[teams]) < round(num_exp / len(new_teams)) and len(experienced_players) != 0:
-                new_teams[teams].append(experienced_players.pop())
-
-    # ...and inexperienced players
-    for teams in new_teams:
-        for inexp_plyr in inexperienced_players:
-            while len(new_teams[teams]) < round(len(plyrs) / len(new_teams)) and len(inexperienced_players) != 0:
-                new_teams[teams].append(inexperienced_players.pop())
     
+    team_names = []
+    for team in new_teams:
+        team_names.append(team)
+
+    for num in range(-1, len(experienced_players) - 1):
+        team = team_names[num % len(new_teams)]
+        new_teams[team].append(experienced_players[num])
+    
+    for num in range(len(inexperienced_players)):
+        team = team_names[num % len(team_names)]
+        new_teams[team].append(inexperienced_players[num])
+
     #return dict
     return new_teams
 
