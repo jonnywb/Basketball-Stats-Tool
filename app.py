@@ -125,8 +125,8 @@ def stats_tool(dict):
                         # print numbered options for available teams using enumerate
                         # also need ordered list of teams, so ammend each team_name 
                         # to team_names list
-                        for count, team in enumerate(dict):
-                            print(f'{count + 1}) {team}')
+                        for count, team in enumerate(dict, 1):
+                            print(f'{count}) {team}')
                             team_names.append(team)
 
                         # User Input two
