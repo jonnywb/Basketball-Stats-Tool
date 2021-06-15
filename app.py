@@ -181,12 +181,8 @@ def stats_tool(dict):
                         print(*guardians, sep=", ")
                         
                         # Hold the information on screen until user decides to continue.
-                        user_cont = input('\nPress ENTER to return to menu...')
-
-                        # Pressing ENTER will break the loop and return to the menu, either way.
-                        if user_cont == '':
-                            break
-                        continue
+                        input('\nPress ENTER to return to menu...')
+                        break
 
                     # Outputs exception message for IndexError        
                     except IndexError as err:
