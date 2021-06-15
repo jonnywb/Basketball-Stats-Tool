@@ -1,11 +1,24 @@
 # from constants import teams/players
 # from copy import deepcopy
-from constants import TEAMS
 from constants import PLAYERS
+from constants import TEAMS
+
 from copy import deepcopy
+
 
 # begin function to 'clean' players
 def clean_players(lst):
+    """ 'clean_players(lst)' takes a 'player' list containing a dictionary 
+    for each player, with the keys: name, guardians, experience and height 
+    and converts to a new dictionary item.
+
+    It does not alter the original dictionary.
+
+    It will convert string data for height, experience and guardians into:
+    integer (removing ' inches') for height, Boolean (from 'YES' or 'NO') 
+    for experience, and 'name and name' to ['name', 'name'] for guardian.
+    """
+
     # create deepcopy of players
     players_copy = deepcopy(lst)
 
@@ -27,13 +40,25 @@ def clean_players(lst):
     #return deepcopied_players
     return players_copy
 
+
 # begin balance_teams function 
-def balance_teams(lst, plyrs):
+def balance_teams(team_list, player_list):
+    """ 'balance_teams(team_list, player_list)' is a function that takes a list of 
+    teams and a dictionary containing player information and outputs to a new 
+    dictionary, dividing the players as equally as possible into the provided number 
+    of teams.
+
+    The function will also divide players into teams based on 'experience'
+    (True / False).
+
+    It returns a new dictionary with {team: [{player1}, {player2}],} and so on.
+    """
+
     # Create new dict for returning teams balanced.
     new_teams = {}
 
     # Create key and value for each team in TEAMS
-    for team in lst:
+    for team in team_list:
         new_teams[team] = []
 
     # Create temporary lists for experienced and inexperienced players
@@ -41,7 +66,7 @@ def balance_teams(lst, plyrs):
     inexperienced_players = []
 
     # Copy players from players list to either experienced or inexperienced
-    for player in plyrs:
+    for player in player_list:
         temp_player = player.copy()
         if player['experience'] == True:
             experienced_players.append(temp_player)
@@ -62,11 +87,15 @@ def balance_teams(lst, plyrs):
         team = team_names[num % len(team_names)]
         new_teams[team].append(inexperienced_players[num])
 
-    #return dict
-    return new_teams
+    return new_teams  # Returns new dictionary.
+
 
 # write stats tool function
 def stats_tool(dict):
+    """ 'stats_tool(dict)' is and application function that outputs data
+    taken from a dictionary containing team and player information.
+    """
+
     print('\n\n BASKETBALL TEAM STATS TOOL')
     
     #begin program loop
@@ -90,11 +119,12 @@ def stats_tool(dict):
                 # Begin new loop for second part
                 while True:
                     try:
-                        # Empty team names list
+                        # team_names list used to assign numbers to keys when looping
                         team_names = []
 
                         # print numbered options for available teams using enumerate
-                        # also need ordered list of names, so ammend each team_name to team_names list
+                        # also need ordered list of teams, so ammend each team_name 
+                        # to team_names list
                         for count, team in enumerate(dict):
                             print(f'{count + 1}) {team}')
                             team_names.append(team)
@@ -104,7 +134,8 @@ def stats_tool(dict):
 
                         # Check user input is within correct range
                         if user_choice_two not in range(1, len(team_names) + 1):
-                            raise IndexError('Please enter a number between 1 and {}'.format(len(team_names)))
+                            raise IndexError('Please enter a number between 1 and {}'\
+                                .format(len(team_names)))
                                         
                         # Set variables for all team info:
                         team_choice = team_names[user_choice_two - 1]
@@ -149,7 +180,7 @@ def stats_tool(dict):
                         print('\nGuardians:')
                         print(*guardians, sep=", ")
                         
-                        # Option to continue
+                        # Hold the information on screen until user decides to continue.
                         user_cont = input('\nPress ENTER to return to menu...')
 
                         # Pressing ENTER will break the loop and return to the menu, either way.
@@ -173,11 +204,12 @@ def stats_tool(dict):
         # Outputs ValueError Message if user input is incorrect.
         except ValueError as err:
             print(f'There was an error. {err}')
-    
-# write dunder main
+
+
+# dunder main ensures that functions are not called when imported
 if __name__ == "__main__":
-    # call functions inside dunder main
     new_players = clean_players(PLAYERS)
     balanced_teams = balance_teams(TEAMS, new_players)
 
     stats_tool(balanced_teams)
+
